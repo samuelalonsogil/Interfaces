@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cliente</title>
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js" integrity="sha512-zN6KYOtONNTOGXz0RkWX2EpavN9VdIs+2w+To+fhciFv83YA9maUpi2lzZWrOfKXdFIZZomWufBznkyHi3a8oQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+Mensaje: <input id="mensaje"> <button id="enviar">Enviar</button>
+<div id="respuesta">
+
+</div>
+
+<script>
+    //conectarse
+    const socket = io('http://10.101.2.110:3000') //ip que se quiera
+    document.getElementById('enviar').addEventListener('click', ()=>{
+        console.log('enviando...');
+        const msg = document.getElementById('mensaje').value;
+
+        //enviar
+        socket.emit('mensaje', msg);
+    });
+
+    //recibir
+    socket.on("todos los mensajes", mensajes=>{
+        document.getElementById('respuesta').innerHTML = mensajes;
+    })
+
+</script>
+
+</body>
+</html>

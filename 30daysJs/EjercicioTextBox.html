@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TextBox interactiva</title>
+</head>
+<body>
+
+<!--Crea una página web, que tenga una caja de texto.
+Al escribir algo sobre esa caja de texto (usa el evento onChange)...
+Indicará si lo escrito es un código postal (usa un expresión regular)
+Mostrará el texto escrito repetido 3 veces
+Indicará si lo escrito comienza por 'Sa' y termina por 'do'
+-->
+
+<h1 style="font-family: 'Comic Sans MS'"> Validar código postal</h1>
+
+<!--Crea una página web, que tenga una caja de texto-->
+<input type="text" id="textBox">
+<div>
+    <span id="confirmacion"></span> <br>
+    <span id="confirmacion2"></span>
+</div>
+<button type="button" id="boton01" onclick="codigoPostal()">Clicka, va</button>
+
+<h1 style="font-family: 'Comic Sans MS'"> Indicar si lo escrito empieza por 'Sa' y termina por 'do'</h1>
+<input type="text" id="textBox02">
+<div>
+    <span id="confirmacion03"></span> <br>
+    <button type="button" id="boton02" onclick="checkeo()">Dale, prueba</button>
+</div>
+
+
+
+<script src="EjercicioCajaTextoWeb.js">
+
+</script>
+
+</body>
+</html>

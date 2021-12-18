@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"
+            integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"
+            integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+
+    <script src="jugador.js"></script>
+    <script src="pelota.js"></script>
+    <script src="bala.js"></script>
+</head>
+
+<body>
+<script>
+    let jugador
+    let pelotas = []
+    let bala = null
+    let fondo
+    function setup() {
+        createCanvas(400, 300);
+        jugador = new Jugador(width / 2)
+        let pelota = new Pelota(width / 2, 100, 20)
+        pelotas.push(pelota)
+        fondo = loadImage('assets/fondo.jfif')
+    }
+
+    function draw() {
+        background(220);
+        fondo.resize(width, height);
+        image(fondo,0,0)
+        // dibujar y mover el personaje
+        // dibujar y mover una pelota
+        // el personaje pueda disparar
+
+        if (bala != null) {
+            bala.dibujar()
+            bala.actualizarPosicion()
+            if (bala.y < 0) bala = null
+        }
+
+        jugador.dibujar()
+        jugador.actualizarPosicion()
+        jugador.checkColisionParedes()
+
+        pelotas.forEach(pelota => {
+            pelota.dibujar()
+            pelota.actualizarPosicion()
+            pelota.checkColisionPared()
+            pelota.checkColisionSuelo()
+        })
+
+
+
+
+        if (keyIsDown(LEFT_ARROW)) {
+            jugador.moverIzquierda()
+        }
+
+        if (keyIsDown(RIGHT_ARROW)) {
+            jugador.moverDerecha()
+        }
+
+        let pelotasABorrar = []
+        pelotas.forEach(pelota => {
+            if(bala!=null && collideRectCircle( bala.x, bala.y, 4, height,
+                pelota.x, pelota.y, pelota.r)){
+                bala=null
+
+                if(pelota.r > 5){
+                    let pelota1 = new Pelota(pelota.x+pelota.r/2, pelota.y, pelota.r/2)
+                    pelota1.velX=-3
+                    pelota1.velY=-3*2
+                    let pelota2 = new Pelota(pelota.x-pelota.r/2, pelota.y, pelota.r/2)
+                    pelota2.velX=+3
+                    pelota2.velY=-3*2
+                    pelotas.push(pelota1)
+                    pelotas.push(pelota2)
+                }
+                pelotasABorrar.push(pelota)
+            }
+        })
+
+
+        pelotas.forEach(pelota => {
+
+            if(collideRectCircle(jugador.x,jugador.y,32,32,
+                pelota.x, pelota.y, pelota.r) ){
+                jugador.morir()
+                //pelotasABorrar.push(pelota)
+            }
+
+        })
+
+        pelotas = pelotas.filter(pelota => !pelotasABorrar.includes(pelota))
+
+        // que la pelota se divida en 2
+        // morir y ganar
+
+        if(!jugador.isAlive){
+            textSize(32);
+            text('GAME OVER', width/2, height/2);
+        }
+
+        if(pelotas.length <= 0){
+            textSize(32);
+            text('HAS GANADO !', width/2, height/2);
+        }
+    }
+
+
+    const collideRectCircle = function (rx, ry, rw, rh, cx, cy, diameter) {
+        //2d
+        // temporary variables to set edges for testing
+        var testX = cx;
+        var testY = cy;
+
+        // which edge is closest?
+        if (cx < rx) {
+            testX = rx       // left edge
+        } else if (cx > rx + rw) { testX = rx + rw }   // right edge
+
+        if (cy < ry) {
+            testY = ry       // top edge
+        } else if (cy > ry + rh) { testY = ry + rh }   // bottom edge
+
+        // // get distance from closest edges
+        var distance = this.dist(cx, cy, testX, testY)
+
+        // if the distance is less than the radius, collision!
+        if (distance <= diameter / 2) {
+            return true;
+        }
+        return false;
+    };
+
+    function keyReleased() {
+        jugador.parar()
+    }
+
+    function keyPressed() {
+        if (keyCode === SHIFT) {
+            if (bala == null) bala = new Bala(jugador.x + 16)
+
+        }
+    }
+</script>
+</body>
+
+</html>

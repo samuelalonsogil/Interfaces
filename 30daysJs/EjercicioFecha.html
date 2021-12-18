@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EjercicioFecha</title>
+
+    <style>
+        .centrado{
+            display: flex;
+            justify-content: center;
+            height: 98vh;
+            align-items: center;
+        }
+
+        .verde{ color: green}
+        .rojo{color: red}
+
+    </style>
+
+    <!-- fechas-->
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/plugin/isBetween.min.js" integrity="sha512-KIV8ZFbBv94hZRpp8hxpMI87J38VwsifSSg9oBjJ+DEjnWE62zqLTgZ9+E1wiWR7e5q4NChxdCC70jR9nwZHOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+
+
+<div class="centrado" id="date">
+    ...
+</div>
+
+<img  id="foto" width="100px">
+
+
+<script>
+    let foto = "http://1.bp.blogspot.com/-RkYnkKZ2Abk/VI82E2D4RWI/AAAAAAAABE4/6q2aJxrDSqE/s1600/ARBOLNVD.jpg";
+    let actualDate = new Date();
+    let dateFormated = new Intl.DateTimeFormat('es').format(actualDate);
+    /*actualDate.getDate() + "/" + (actualDate.getMonth()+1) +"/"+actualDate.getFullYear();*/
+
+
+    document.getElementById('date').innerHTML = dateFormated;
+
+    /*20 diciembre - 06 enero*/
+    /*if (actualDate.getMonth()+1 === 12 && actualDate.getDate() >= 20 && actualDate.getMonth()+1 === 1 && actualDate.getDate() <= 6)*/
+
+    dayjs.extend(window.dayjs_plugin_isBetween)
+    let felizNavidad = dayjs(hoy).isBetween(new Date().getFullYear()+'-12-20', dayjs((new Date().getFullYear()+1)+'-1-6'));
+
+    if (felizNavidad) {
+        document.getElementById('foto').src = foto;
+    }
+
+
+
+
+</script>
+
+</body>
+</html>

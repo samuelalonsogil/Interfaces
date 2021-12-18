@@ -1,0 +1,28 @@
+{
+  "name": "programming_pava_script",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon servidor.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelalonsogil/programmingJavaScript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/samuelalonsogil/programmingJavaScript/issues"
+  },
+  "homepage": "https://github.com/samuelalonsogil/programmingJavaScript#readme",
+  "description": "npm init --yes\r npm i -D nodemon\r npm i express\r npm i socket.io",
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "socket.io": "^4.3.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

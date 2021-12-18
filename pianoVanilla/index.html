@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.32/Tone.js"></script>
+
+    <style>
+        .container{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            height: 100px;
+            width: 200px;
+        }
+        .container>button{
+            margin: 4px;
+            color:black;
+            background-color: white;
+            border:1px solid black;
+        }
+        .container>button:active{
+            background-color: gray;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <button>DO</button>
+    <button>RE</button>
+    <button>MI</button>
+    <button>FA</button>
+    <button>SOL</button>
+    <button>LA</button>
+    <button>SI</button>
+
+</div>
+
+<script>
+const synth = new Tone.Synth().toDestination();
+document.getElementById('do').addEventListener('click', sonarDo);
+document.getElementById('re').addEventListener('click', sonarRe);
+document.getElementById('mi').addEventListener('click', sonarMi);
+document.getElementById('fa').addEventListener('click', sonarFa);
+document.getElementById('sol').addEventListener('click', sonarSol);
+document.getElementById('la').addEventListener('click', sonarLa);
+document.getElementById('si').addEventListener('click', sonarSi);
+
+function sonarDo(){
+    synth.triggerAttackRelease('C4' , '8n')
+}
+
+function sonarRe(){
+    synth.triggerAttackRelease('D4' , '8n')
+}
+
+function sonarMi(){
+    synth.triggerAttackRelease('E4' , '8n')
+}
+
+function sonarFa(){
+    synth.triggerAttackRelease('F4' , '8n')
+}
+
+function sonarSol(){
+    synth.triggerAttackRelease('G4' , '8n')
+}
+
+function sonarLa(){
+    synth.triggerAttackRelease('H4' , '8n')
+}
+
+function sonarSi(){
+    synth.triggerAttackRelease('I4' , '8n')
+}
+
+function pulsoTecla(event){
+    if(event.key === 'a') sonarDo()
+    else if(event.key === 's') sonarRe()
+}
+</script>
+
+</body>
+</html>

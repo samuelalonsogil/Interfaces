@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Asincronía</title>
+</head>
+<body>
+    <button id="boton1">
+        Obtener cara
+    </button>
+
+    <img id="cara1" src="">
+
+    <script>
+        document.getElementById('boton1').addEventListener('click',obtenerCaraAPI);
+
+        function obtenerCaraAPI(){
+                    /*hago cosas con el json*/                  /*response devuelve datos http a json*/
+            let jsonAPI = fetch('https://randomuser.me/api').then(response => response.json()).then(jsonAPI =>
+                    document.getElementById('cara1').src= jsonAPI['results'][0]['picture']['large'] );
+
+            /*callbacks , promesas, async, observables*/
+
+            /* console.log(jsonAPI) aqui no puedo hacer cosas con el json*/;
+        }
+    </script>
+</body>
+</html>
